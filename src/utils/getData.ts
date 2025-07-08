@@ -1,4 +1,5 @@
 import { PER_PAGE, RESPONSE_PAGE } from "../shared/constants";
+import { loader } from "../shared/loader";
 import type { ItemProps } from "../shared/type";
 import axios from "axios";
 
@@ -10,6 +11,8 @@ export const getData = async (
   if (page in RESPONSE_PAGE) {
     return RESPONSE_PAGE[page];
   }
+  loader(document.querySelector(".grid"), true);
+  loader(document.querySelector(".container-pagination"), true);
   try {
     const res = await axios.get(`http://localhost:3030/${url}`, {
       params: { _page: page, _per_page: PER_PAGE },
@@ -42,5 +45,8 @@ export const getData = async (
       items: [],
       pagination,
     };
+  } finally {
+    loader(document.querySelector(".grid"), false);
+    loader(document.querySelector(".container-pagination"), false);
   }
 };

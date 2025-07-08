@@ -121,6 +121,9 @@ $text-color: #333;
   align-items: baseline;
   justify-content: center;
   padding-inline: toRem(20);
+  &.--loader {
+    opacity: 0.2;
+  }
   /* .container-pagination__btn */
 
   &__btn {
@@ -130,5 +133,39 @@ $text-color: #333;
     border: 0;
     cursor: pointer;
     padding: toRem(4);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.--loader {
+  position: relative;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+  }
+  &::before {
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(toRem(8));
+  }
+  &::after {
+    display: block;
+    height: 100%;
+    max-height: toRem(60);
+    aspect-ratio: 1;
+    border: toRem(3) solid rgb(185, 27, 27);
+    border-left-color: transparent;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
   }
 }
