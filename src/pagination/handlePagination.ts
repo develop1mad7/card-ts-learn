@@ -12,8 +12,14 @@ export const handlePagination = (url: string | undefined) => {
     const target = e.currentTarget as HTMLButtonElement;
     const page: string = target.dataset.pageNum ? target.dataset.pageNum : "";
     const data = await getData(url, page);
+
+    target.parentElement
+      ?.querySelector(".--active")
+      ?.classList.remove("--active");
+
     if (data && $gridContainer) {
       $gridContainer.innerHTML = "";
+      target.classList.add("--active");
       generatedItems({ listItems: data.items, gridContainer: $gridContainer });
     }
   };
