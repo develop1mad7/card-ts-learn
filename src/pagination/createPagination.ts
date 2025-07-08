@@ -1,25 +1,10 @@
-import type { PaginationType } from "../shared/type";
-export const CreatePagination = ({
-  first,
-  prev,
-  last,
-  next,
-}: PaginationType) => {
-  const listPagination: number[] = [first, prev, last, next].sort();
+import { CreateItemPagination } from "./createItemPagination";
+
+export const CreatePagination = (pages: number) => {
   const containerPagination = document.createElement("div");
   containerPagination.className = "container-pagination";
-  const itemsPagination = listPagination
-    .map((item, idx, arr) => {
-      const btn = document.createElement("button");
-      btn.textContent = item ? item.toString() : "";
-      if (idx === Math.floor((arr.length - 1) / 2) && arr.length) {
-        const span = document.createElement("span");
-        span.textContent = "...";
-        return [btn, span];
-      }
-      return btn;
-    })
-    .flat();
-  containerPagination.append(...itemsPagination);
+  for (let i = 0; i < pages; i++) {
+    containerPagination.append(CreateItemPagination(i + 1));
+  }
   document.body.append(containerPagination);
 };

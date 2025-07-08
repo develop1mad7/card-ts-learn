@@ -2,16 +2,13 @@ export type ItemProps = {
   title: string;
   desc: string;
 };
-export type PaginationType = {
-  first: number;
-  prev: number;
-  next: number;
-  last: number;
+export type PaginationProps = {
+  pages: number;
 };
 export interface GridProps {
   gridContainer?: HTMLDivElement;
   listItems?: ItemProps[];
-  pagination?: PaginationType;
+  pagination?: number;
   title?: string;
   url?: string;
 }
