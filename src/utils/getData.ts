@@ -17,7 +17,6 @@ export const getData = async (
   loader(document.querySelector(".container-pagination"), true);
   try {
     const res = await getAxios(url, page);
-    console.log(res);
     const dataItems = res.data ?? null;
 
     if (dataItems && dataItems.data && !RESPONSE_PAGE_DATA.lenPage) {
