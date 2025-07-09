@@ -3,11 +3,11 @@ import { CreatePagination } from "./pagination/createPagination";
 import { handlePagination } from "./pagination/handlePagination";
 import type { GridProps } from "./shared/type";
 import { getData } from "./utils";
+import { getQueryParamsPage } from "./utils/getQueryParamsPAge";
 
 import "./style.scss";
 
-// const dataLearnYoutube = await getData("dataLearn");
-const dataBooks = await getData("dataBook", "1");
+const dataBooks = await getData("dataBook", getQueryParamsPage());
 // const dataLearn: GridProps = {
 //   gridContainer: $gridContainer,
 //   listItems: dataLearnYoutube,

@@ -1,30 +1,45 @@
 import { generatedItems } from "../grid/GeneratedItems";
 import { getData } from "../utils";
+import { setQueryParamsPage } from "../utils/setQueryParamsPage";
 
 export const handlePagination = (url: string | undefined) => {
-  if (!url) return;
+  if (url) {
+    const $gridContainer = document.querySelector<HTMLDivElement>(".grid");
+    const $btnsPagination = document.querySelectorAll<HTMLButtonElement>(
+      ".container-pagination__btn"
+    );
 
-  const $gridContainer = document.querySelector<HTMLDivElement>(".grid");
-  const $btnsPagination = document.querySelectorAll<HTMLButtonElement>(
-    ".container-pagination__btn"
-  );
-  const handleClick = async (e: MouseEvent) => {
-    const target = e.currentTarget as HTMLButtonElement;
-    const page: string = target.dataset.pageNum ? target.dataset.pageNum : "";
-    const data = await getData(url, page);
+    const handleClick = async (e: MouseEvent) => {
+      if (e.currentTarget instanceof HTMLButtonElement) {
+        const target = e.currentTarget;
+        const page: string = target.dataset.pageNum
+          ? target.dataset.pageNum
+          : "";
 
-    target.parentElement
-      ?.querySelector(".--active")
-      ?.classList.remove("--active");
+        setQueryParamsPage(page);
 
-    if (data && $gridContainer) {
-      $gridContainer.innerHTML = "";
-      target.classList.add("--active");
-      generatedItems({ listItems: data.items, gridContainer: $gridContainer });
-    }
-  };
+        const data = await getData(url, page);
+        target.parentElement
+          ?.querySelector(".--active")
+          ?.classList.remove("--active");
 
-  $btnsPagination.forEach((btn) => {
-    btn.addEventListener("click", handleClick);
-  });
+        if (
+          Array.isArray(data.items) &&
+          data.items.length > 0 &&
+          $gridContainer
+        ) {
+          $gridContainer.innerHTML = "";
+          target.classList.add("--active");
+          generatedItems({
+            listItems: data.items,
+            gridContainer: $gridContainer,
+          });
+        }
+      }
+    };
+
+    $btnsPagination.forEach((btn) => {
+      btn.addEventListener("click", handleClick);
+    });
+  }
 };

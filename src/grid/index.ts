@@ -2,7 +2,7 @@ import type { GridProps } from "../shared/type";
 import { FormCreateItemLearn } from "../utils";
 import { createGridLearn } from "./createGridLearn";
 
-export const initGrid = ({ listItems, title, url }: GridProps): void | null => {
+export const initGrid = ({ listItems, title, url }: GridProps): void => {
   const gridContainer = document.createElement("div");
   gridContainer.className = `grid --${url}`;
 

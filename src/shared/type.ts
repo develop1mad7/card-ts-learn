@@ -5,9 +5,11 @@ export type ItemProps = {
 export type PaginationProps = {
   pages: number;
 };
+export type listItems = ItemProps[] | null;
+
 export interface GridProps {
   gridContainer?: HTMLDivElement;
-  listItems?: ItemProps[];
+  listItems: listItems;
   pagination?: number;
   title?: string;
   url?: string;

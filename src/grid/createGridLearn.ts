@@ -17,7 +17,7 @@ export const createGridLearn = async ({
   if (gridContainer) {
     gridContainer.innerHTML = "";
 
-    if (Array.isArray(listItems)) {
+    if (listItems) {
       generatedItems({ listItems, gridContainer });
     }
   }
