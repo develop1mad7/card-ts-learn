@@ -1,36 +1,38 @@
-import { PER_PAGE, RESPONSE_PAGE } from "../shared/constants";
+import { RESPONSE_PAGE_DATA } from "../shared/constants";
 import { loader } from "../shared/loader";
 import type { listItems } from "../shared/type";
 import axios from "axios";
+import { getAxios } from "./getAxios";
 
 export const getData = async (
   url: string,
-  page: string
+  page: number
 ): Promise<{ items: listItems; pagination?: number }> => {
   let pagination = 0;
-  if (page in RESPONSE_PAGE) {
-    return RESPONSE_PAGE[page];
+  if (RESPONSE_PAGE_DATA.pages && page in RESPONSE_PAGE_DATA.pages) {
+    return RESPONSE_PAGE_DATA.pages[page];
   }
+
   loader(document.querySelector(".grid"), true);
   loader(document.querySelector(".container-pagination"), true);
-  // console.log(object)
   try {
-    const res = await axios.get(`http://localhost:3030/${url}?_page=${page}`, {
-      params: { _per_page: PER_PAGE },
-    });
-    if (res && res.data) {
-      const { pages } = res.data;
+    const res = await getAxios(url, page);
+    console.log(res);
+    const dataItems = res.data ?? null;
+
+    if (dataItems && dataItems.data && !RESPONSE_PAGE_DATA.lenPage) {
+      const { pages, items } = dataItems;
       pagination = pages;
+      RESPONSE_PAGE_DATA.lenPage = pages;
+      RESPONSE_PAGE_DATA.countItems = items;
     }
 
-    const dataItems = res.data.data ? res.data.data : null;
-
-    RESPONSE_PAGE[page] = {
-      items: dataItems,
+    RESPONSE_PAGE_DATA.pages[page] = {
+      items: dataItems.data,
     };
 
     return {
-      items: dataItems,
+      items: dataItems.data,
       pagination,
     };
   } catch (error) {

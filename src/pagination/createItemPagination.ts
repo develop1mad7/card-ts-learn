@@ -1,4 +1,4 @@
-import { getQueryParamsPage } from "../utils/getQueryParamsPAge";
+import { getQueryParamsPage } from "../utils/getQueryParamsPage";
 
 export const CreateItemPagination = (item: number): HTMLButtonElement => {
   const btn = document.createElement("button");

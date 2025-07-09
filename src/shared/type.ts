@@ -7,6 +7,10 @@ export type PaginationProps = {
 };
 export type listItems = ItemProps[] | null;
 
+export type ResponsePageMap = {
+  [page: string]: { items: listItems };
+};
+
 export interface GridProps {
   gridContainer?: HTMLDivElement;
   listItems: listItems;

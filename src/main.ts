@@ -3,7 +3,7 @@ import { CreatePagination } from "./pagination/createPagination";
 import { handlePagination } from "./pagination/handlePagination";
 import type { GridProps } from "./shared/type";
 import { getData } from "./utils";
-import { getQueryParamsPage } from "./utils/getQueryParamsPAge";
+import { getQueryParamsPage } from "./utils/getQueryParamsPage";
 
 import "./style.scss";
 

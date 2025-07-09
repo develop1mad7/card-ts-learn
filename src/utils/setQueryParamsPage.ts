@@ -1,7 +1,9 @@
-export const setQueryParamsPage = (page: string) => {
-  const params = new URLSearchParams(window.location.search);
-  params.set("_page", page);
+export const setQueryParamsPage = (page: number) => {
+  if (page > 0) {
+    const params = new URLSearchParams(window.location.search);
+    params.set("_page", page.toString());
 
-  const newUrl = `${window.location.pathname}?${params.toString()}`;
-  history.pushState(null, "", newUrl);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    history.pushState(null, "", newUrl);
+  }
 };

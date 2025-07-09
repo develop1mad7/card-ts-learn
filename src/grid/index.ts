@@ -7,7 +7,7 @@ export const initGrid = ({ listItems, title, url }: GridProps): void => {
   gridContainer.className = `grid --${url}`;
 
   createGridLearn({ gridContainer, listItems, title });
-  if (gridContainer && listItems && title) {
-    FormCreateItemLearn({ url, listItems, gridContainer });
+  if (gridContainer && title) {
+    FormCreateItemLearn({ url, gridContainer });
   }
 };
